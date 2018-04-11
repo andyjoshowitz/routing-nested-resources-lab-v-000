@@ -1,12 +1,11 @@
 class SongsController < ApplicationController
   def index
-    # binding.pry
     if params[:artist_id]
       if Artist.exists?(id: params[:artist_id])
         @songs = Artist.find(params[:artist_id]).songs
       else
-        redirect_to artists_path
         flash[:alert] = "Artist not found"
+        redirect_to artists_path
       end
     else
       @songs = Song.all
@@ -14,7 +13,6 @@ class SongsController < ApplicationController
   end
 
   def show
-    # binding.pry
     if Song.exists?(id: params[:id])
       @song = Song.find(params[:id])
     else
